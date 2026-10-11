@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Hire System</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header & Navbar */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        /* Hero Section - Full Screen Background Image */
+        #hero-section {
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
+                        url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            width: 100%;
+            height: 100vh; /* पूर्ण स्क्रीन उंची */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 35px;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Perfectly Centered Auth Buttons */
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* About Section Style */
+        #about-section {
+            padding: 80px 20px;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        #about-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        #about-section p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #aaa;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .btn-block {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Dashboard Containers */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid #ccc;
+        }
+
+        .job-card.matched {
+            border-left-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navbar -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo" onclick="goHome(event)"><i class="fa-solid fa-briefcase"></i> Smart Hire</a>
+            <ul class="nav-links">
+                <li><a href="#hero-section" onclick="goHome(event)">Home</a></li>
+                <li><a href="#about-section">About</a></li>
+                <li id="nav-auth-btns">
+                    <button class="btn btn-primary" style="padding: 8px 20px; font-size: 14px;" onclick="openModal('login')">Sign In</button>
+                </li>
+                <li id="nav-user-info" style="display: none; align-items: center;">
+                    <span id="welcome-user" style="font-weight: 600; color: #007bff; margin-right: 15px;"></span>
+                    <button class="btn btn-primary" style="padding: 6px 15px; font-size: 13px;" onclick="logout()">Logout</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Public Content Wrapper -->
+    <div id="public-main-content">
+        <!-- Hero Section (Full Screen Background) -->
+        <section id="hero-section">
+            <div class="hero-content">
+                <h1>Find Your Dream Job or Hire Top Talent</h1>
+                <p>Smart Hire System connects skilled workers and professional clients seamlessly. Build your career or find the perfect candidate today!</p>
+                
+                <div class="hero-btns">
+                    <button class="btn btn-primary" onclick="openModal('login')">Sign In</button>
+                    <button class="btn btn-outline" onclick="openModal('signup')">Sign Up</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about-section">
+            <h2>About Smart Hire System</h2>
+            <p>Smart Hire System is designed to bridge the gap between talented job seekers and industry-leading companies. Our intelligent matching system helps workers find roles tailored precisely to their core skills, while empowering clients to effortlessly review portfolios, resumes, and post vacancies in real time.</p>
+        </section>
+    </div>
+
+    <!-- Client Dashboard -->
+    <div id="client-dashboard" class="dashboard-container" style="display: none;">
+        <h2>Client Dashboard</h2>
+        <div style="background: white; padding: 25px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+            <h3>Post a New Job</h3>
+            <form id="postJobForm" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="jobCompany" required>
+                </div>
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" id="jobTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Required Skills (Comma separated)</label>
+                    <input type="text" id="jobSkills" placeholder="e.g. Java, HTML, SQL" required>
+                </div>
+                <div class="form-group">
+                    <label>Job Description</label>
+                    <textarea id="jobDesc" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Publish Job</button>
+                <span id="job-msg" style="margin-left: 10px; font-weight: 600;"></span>
+            </form>
+        </div>
+
+        <h3 style="margin-top: 40px;">Registered Workers</h3>
+        <div id="workers-list" class="jobs-grid">
+            <p>Loading workers...</p>
+        </div>
+
+        <h3 style="margin-top: 40px;">Job Applications Received</h3>
+        <div id="applications-list" class="jobs-grid">
+            <p>Loading applications...</p>
+        </div>
+    </div>
+
+    <!-- Worker Dashboard -->
+    <div id="worker-dashboard" class="dashboard-container" style="display: none;">
+        <h2>Worker Dashboard</h2>
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+            <p><strong>Your Registered Skills:</strong> <span id="worker-skills-badge" style="color: #007bff; font-weight: bold;"></span></p>
+        </div>
+
+        <h3 style="margin-top: 30px;">Skill-Matched Jobs</h3>
+        <div id="suggested-jobs" class="jobs-grid">
+            <p>Loading matched jobs...</p>
+        </div>
+
+        <h3 style="margin-top: 40px;">All Available Jobs</h3>
+        <div id="all-jobs" class="jobs-grid">
+            <p>Loading jobs...</p>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title" style="margin-bottom: 20px; text-align: center;">Sign In</h2>
+            <form id="authForm">
+                <div class="form-group" id="nameGroup" style="display: none;">
+                    <label>Full Name</label>
+                    <input type="text" id="authName">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="authEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPassword" required>
+                </div>
+                <div class="form-group" id="roleGroup" style="display: none;">
+                    <label>Register As</label>
+                    <select id="authRole" onchange="toggleRoleFields()">
+                        <option value="worker">Job Seeker (Worker)</option>
+                        <option value="client">Employer (Client)</option>
+                    </select>
+                </div>
+
+                <!-- Dynamic Worker Fields -->
+                <div id="workerFields" style="display: none;">
+                    <div class="form-group">
+                        <label>Skills (Comma separated)</label>
+                        <input type="text" id="authSkills" placeholder="Java, HTML, Python">
+                    </div>
+                    <div class="form-group">
+                        <label>Experience</label>
+                        <input type="text" id="authExp" placeholder="e.g. 1 Year / Fresher">
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Resume (PDF/Doc)</label>
+                        <input type="file" id="authResume">
+                    </div>
+                </div>
+
+                <!-- Dynamic Client Fields -->
+                <div id="clientFields" style="display: none;">
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="authCompany" placeholder="Tech Corp">
+                    </div>
+                </div>
+
+                <button type="submit" id="authSubmitBtn" class="btn btn-primary btn-block" style="margin-top: 10px;">Sign In</button>
+                <p id="auth-msg" style="text-align: center; margin-top: 15px; font-size: 14px; font-weight: 600;"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Smart Hire System. All rights reserved.</p>
+    </footer>
+
+    <!-- Script File -->
+    <script src="javascript.js"></script>
+</body>
+</html>
